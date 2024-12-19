@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="multi">
+    <head>
+        <title>Mutipage Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/3.0.0/toaster.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="multi.css">
+    </head>
+    <body ng-controller="step">
+       <h1>Multi-Step Form</h1>
+      <!-- multistep form -->
+    <form class="feedback" name="multiStepForm" id="msform" novalidate>
+    <!-- progressbar -->
+    <ul id="progressbar">
+      <li class="active">Name</li>
+      <li ng-class="{'active':isage||isfeedback}">Age</li>
+      <li ng-class="{'active':isfeedback}">FeedBack</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset ng-if="!isage && !isfeedback">
+      <h2 class="fs-title">Your Name?</h2>
+      <h3 class="fs-subtitle">This is step 1</h3>
+      <input type="text" name="name" placeholder="Name" ng-model="arr.name" required>
+      
+      <input type="button" name="next" class="next action-button" value="Next" ng-click="next('1')">
+    </fieldset>
+    <fieldset ng-if="isage">
+      <h2 class="fs-title">Hi {{arr.name}}, your age?</h2>
+      <h3 class="fs-subtitle">This is step 2</h3>
+      <div class="col-md-12">
+      <input type="number" name="age" placeholder="Age" ng-model="arr.age">
+      </div>
+      <div class="col-md-12 form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="male" value="Male" ng-model="arr.gender" required>
+        <label class="form-check-label" for="male">Male</label>
+        <input class="form-check-input" type="radio" name="gender" id="female" value="Female" ng-model="arr.gender" required>
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+      <input type="button" name="previous" class="previous action-button" value="Previous" ng-click="previous('1')">
+      <input type="button" name="next" class="next action-button" value="Next" ng-click="next('2')">
+    </fieldset>
+    <fieldset ng-if="isfeedback">
+      <h2 class="fs-title"> your feedback</h2>
+      <h3 class="fs-subtitle">This is step 3</h3>
+      <input id="range" type="range" min="0" max="100" ng-model="arr.feedback">
+      <input type="button" name="previous" class="previous action-button" value="Previous" ng-click="previous('2')">
+      <input type="submit" name="submit" class="submit action-button" value="Submit" ng-click="next('final')">
+    </fieldset>
+  </form>
+  <script src="multi.js"></script>
+    </body>
+</html>
